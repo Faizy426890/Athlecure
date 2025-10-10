@@ -18,6 +18,7 @@ type Message = {
   id: string
   role: "user" | "assistant"
   content: string
+  timestamp: Date
 }
 
 export function AthelcureChatbot() {
@@ -27,17 +28,40 @@ export function AthelcureChatbot() {
       id: "welcome",
       role: "assistant",
       content:
-        "Hi! We’re working on something special. We’re coming soon — please join the waitlist to get the latest updates.",
+        "Hi! We're working on something special. We're coming soon — please join the waitlist to get the latest updates.",
+      timestamp: new Date(),
     },
   ])
   const [input, setInput] = React.useState("")
+  const messagesEndRef = React.useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  React.useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  function formatTime(date: Date) {
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
+  }
 
   function sendUserMessage(e?: React.FormEvent) {
     e?.preventDefault()
     const trimmed = input.trim()
     if (!trimmed) return
 
-    const userMsg: Message = { id: crypto.randomUUID(), role: "user", content: trimmed }
+    const userMsg: Message = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content: trimmed,
+      timestamp: new Date(),
+    }
     setMessages((prev) => [...prev, userMsg])
     setInput("")
 
@@ -46,7 +70,8 @@ export function AthelcureChatbot() {
       id: crypto.randomUUID(),
       role: "assistant",
       content:
-        "Thanks for reaching out! We’re building Athelcure and will launch soon. Please join the waitlist to be first to know.",
+        "Thanks for reaching out! We're building Athelcure and will launch soon. Please join the waitlist to be first to know.",
+      timestamp: new Date(),
     }
     setTimeout(() => setMessages((prev) => [...prev, reply]), 300)
   }
@@ -74,73 +99,124 @@ export function AthelcureChatbot() {
             alt="Chatbot icon"
             width={74}
             height={74}
-            className="h-14 w-14 md:h-20 md:w-20 select-none drop-shadow-md"
+            className="h-16 w-16 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 select-none drop-shadow-md"
             priority
           />
         </button>
       </SheetTrigger>
 
-      <SheetContent side="right" className="w-full sm:max-w-sm p-0">
-        <SheetHeader className="p-4 border-b border-border">
-          <div className="flex items-center gap-3">
+      <SheetContent 
+        side="right" 
+        className="w-full sm:max-w-md md:max-w-lg p-0 flex flex-col h-full max-h-screen"
+      >
+        {/* Header - Fixed */}
+        <SheetHeader className="flex-shrink-0 p-3 sm:p-4 border-b border-border">
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className="flex-shrink-0">
               <img
                 src="https://res.cloudinary.com/diml90c1y/image/upload/v1759972747/1_Transparent_Image_pjpbxm.png"
                 alt="Brand Logo"
-                className="h-20 lg:h-20 w-auto object-contain"
+                className="h-12 sm:h-16 md:h-20 w-auto object-contain"
               />
             </div>
-            <div className="flex flex-col">
-              <SheetTitle className="text-base">Chat with Athelcure</SheetTitle>
-              <SheetDescription className="text-xs">
+            <div className="flex flex-col min-w-0">
+              <SheetTitle className="text-sm sm:text-base truncate">Chat with Athelcure</SheetTitle>
+              <SheetDescription className="text-xs sm:text-sm truncate">
                 Light, modern, and professional. How can we help?
               </SheetDescription>
             </div>
           </div>
         </SheetHeader>
 
-        <div className="flex flex-col h-full">
-          <div
-            className="flex-1 overflow-y-auto p-4 space-y-3"
-            aria-live="polite"
-            aria-atomic="false"
-          >
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={cn(
-                  "max-w-[85%] rounded-lg px-3 py-2 text-sm leading-relaxed",
-                  m.role === "assistant"
-                    ? "bg-secondary text-foreground"
-                    : "ml-auto bg-primary text-primary-foreground",
-                )}
-              >
-                {m.content}
+        {/* Messages Area - Scrollable */}
+        <div
+          className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4"
+          aria-live="polite"
+          aria-atomic="false"
+        >
+          {messages.map((m) => (
+            <div
+              key={m.id}
+              className={cn(
+                "flex gap-2",
+                m.role === "user" ? "justify-end" : "justify-start",
+              )}
+            >
+              {m.role === "assistant" && (
+                <div className="flex-shrink-0 mt-1">
+                  <img
+                    src="https://res.cloudinary.com/diml90c1y/image/upload/v1759972747/1_Transparent_Image_pjpbxm.png"
+                    alt="Athelcure"
+                    className="h-6 w-6 sm:h-8 sm:w-8 rounded-full object-contain bg-white border border-border"
+                  />
+                </div>
+              )}
+              
+              <div className={cn("flex flex-col max-w-[75%] sm:max-w-[80%]", m.role === "user" ? "items-end" : "items-start")}>
+                <div
+                  className={cn(
+                    "rounded-lg px-3 py-2 text-xs sm:text-sm leading-relaxed break-words",
+                    m.role === "assistant"
+                      ? "bg-secondary text-foreground rounded-tl-none"
+                      : "bg-primary text-primary-foreground rounded-tr-none",
+                  )}
+                >
+                  {m.content}
+                </div>
+                <span className="text-[9px] sm:text-[10px] text-muted-foreground mt-1 px-1">
+                  {formatTime(m.timestamp)}
+                </span>
               </div>
-            ))}
+
+              {m.role === "user" && (
+                <div className="flex-shrink-0 mt-1">
+                  <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-[10px] sm:text-xs font-medium">
+                    You
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Footer - Fixed */}
+        <div className="flex-shrink-0 border-t border-border p-3 sm:p-4 bg-background">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2 sm:mb-3">
+            <span className="text-[10px] sm:text-xs text-muted-foreground">
+              We're coming soon — join the waitlist for updates.
+            </span>
+            <Button 
+              size="sm" 
+              variant="default" 
+              onClick={openWaitlist}
+              className="text-xs sm:text-sm whitespace-nowrap"
+            >
+              Join Waitlist
+            </Button>
           </div>
 
-          <div className="border-t border-border p-3">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs text-muted-foreground">
-                We’re coming soon — join the waitlist for updates.
-              </span>
-              <Button size="sm" variant="default" onClick={openWaitlist}>
-                Join Waitlist
-              </Button>
-            </div>
-
-            <form onSubmit={sendUserMessage} className="flex items-center gap-2">
-              <Input
-                aria-label="Your message"
-                placeholder="Type a message…"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-              <Button type="submit" variant="secondary">
-                Send
-              </Button>
-            </form>
+          <div className="flex items-center gap-2">
+            <Input
+              aria-label="Your message"
+              placeholder="Type a message…"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault()
+                  sendUserMessage()
+                }
+              }}
+              className="text-xs sm:text-sm"
+            />
+            <Button 
+              onClick={() => sendUserMessage()} 
+              variant="secondary"
+              className="text-xs sm:text-sm flex-shrink-0"
+            >
+              Send
+            </Button>
           </div>
         </div>
       </SheetContent>

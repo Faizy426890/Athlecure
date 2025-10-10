@@ -1,6 +1,9 @@
-// app/layout.tsx
+// app/layout.tsx 
+
 import type { Metadata } from 'next'
-import './globals.css'
+import './globals.css' 
+import { Toaster } from './sooner'
+import { Suspense } from "react"
 import { Analytics } from '@vercel/analytics/next'
 
 // Google Fonts
@@ -28,7 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${geistMono.variable} ${serif.variable}`}>
       <body className="font-sans">
         {children}
-        <Analytics />
+        <Analytics /> 
+          <Toaster position="top-center" richColors closeButton />
       </body>
     </html>
   )

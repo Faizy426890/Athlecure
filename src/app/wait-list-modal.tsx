@@ -35,7 +35,7 @@ export default function WaitlistModal() {
 
       {/* Modal Panel */}
       <div
-        className="relative z-10 mx-4 mt-24 w-full max-w-lg overflow-hidden rounded-2xl bg-white p-6 shadow-2xl border-t-4"
+        className="relative z-10 mx-4 mt-32 w-full max-w-lg overflow-hidden rounded-2xl bg-white p-6 shadow-2xl border-t-4"
         style={{ borderTopColor: "#EB2027" }}
       >
         <div className="flex items-start justify-between gap-4">

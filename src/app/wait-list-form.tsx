@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import { toast } from "sonner"
 import { useState } from "react"
 
 type FormState = {
@@ -20,37 +20,49 @@ export default function WaitlistForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
- async function onSubmit(e: React.FormEvent) {
-  e.preventDefault()
-  setError(null)
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
 
-  if (!form.name.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) {
-    setError("Please provide a valid name and email.")
-    return
-  }
-
-  try {
-    setLoading(true)
-
-    const res = await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    })
-
-    if (!res.ok) {
-      const data = await res.json()
-      throw new Error(data.error || "Failed to send email")
+    if (!form.name.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) {
+      setError("Please provide a valid name and email.")
+      toast.error("Invalid details", {
+        description: "Please provide a valid name and email.",
+      })
+      return
     }
 
-    setSubmitted(true)
-    setForm({ name: "", email: "", phone: "" })
-  } catch (err: any) {
-    setError(err.message || "Something went wrong. Please try again.")
-  } finally {
-    setLoading(false)
+    try {
+      setLoading(true)
+
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        toast.error("Submission failed", {
+          description: data.error || "Failed to send email.",
+        })
+        throw new Error(data.error || "Failed to send email")
+      }
+
+      setSubmitted(true)
+      setForm({ name: "", email: "", phone: "" })
+      toast.success("You're on the list!", {
+        description: "Thanks for joining the waitlist. We’ll be in touch soon.",
+      })
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again.")
+      toast.error("Something went wrong", {
+        description: err?.message || "Please try again.",
+      })
+    } finally {
+      setLoading(false)
+    }
   }
-}
 
   if (submitted) {
     return (
@@ -121,7 +133,7 @@ export default function WaitlistForm() {
       <button
         type="submit"
         disabled={loading}
-        className="inline-flex h-10 items-center justify-center rounded-lg bg-black px-4 text-sm font-medium text-white transition hover:bg-black/90 disabled:opacity-60"
+        className="inline-flex h-10 items-center justify-center rounded-lg bg-black px-4 text-sm font-medium text-white transition hover:bg-black/90 disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
       >
         {loading ? "Submitting…" : "Join the Waitlist"}
       </button>

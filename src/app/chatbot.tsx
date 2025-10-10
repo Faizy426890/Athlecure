@@ -99,7 +99,7 @@ export function AthelcureChatbot() {
             alt="Chatbot icon"
             width={74}
             height={74}
-            className="h-16 w-16 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 select-none drop-shadow-md"
+            className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 select-none drop-shadow-md"
             priority
           />
         </button>
@@ -155,7 +155,7 @@ export function AthelcureChatbot() {
               <div className={cn("flex flex-col max-w-[75%] sm:max-w-[80%]", m.role === "user" ? "items-end" : "items-start")}>
                 <div
                   className={cn(
-                    "rounded-lg px-3 py-2 text-xs sm:text-sm leading-relaxed break-words",
+                    "rounded-lg px-3 py-2 text-xs sm:text-sm leading-relaxed break-words inline-block w-fit",
                     m.role === "assistant"
                       ? "bg-secondary text-foreground rounded-tl-none"
                       : "bg-primary text-primary-foreground rounded-tr-none",

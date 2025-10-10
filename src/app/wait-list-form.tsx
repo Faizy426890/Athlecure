@@ -52,7 +52,7 @@ export default function WaitlistForm() {
       setSubmitted(true)
       setForm({ name: "", email: "", phone: "" })
       toast.success("You're on the list!", {
-        description: "Thanks for joining the waitlist. We’ll be in touch soon.",
+        description: "Thanks for joining the waitlist. We'll be in touch soon.",
       })
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
@@ -85,7 +85,7 @@ export default function WaitlistForm() {
           onChange={onChange}
           placeholder="Jane Doe"
           required
-          className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-sm text-black outline-none transition focus:border-black"
+          className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-base text-black outline-none transition focus:border-black"
           aria-invalid={!!error && !form.name.trim()}
         />
       </div>
@@ -102,7 +102,7 @@ export default function WaitlistForm() {
           onChange={onChange}
           placeholder="jane@domain.com"
           required
-          className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-sm text-black outline-none transition focus:border-black"
+          className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-base text-black outline-none transition focus:border-black"
           aria-invalid={!!error && !/^\S+@\S+\.\S+$/.test(form.email)}
         />
       </div>
@@ -119,7 +119,7 @@ export default function WaitlistForm() {
           onChange={onChange}
           placeholder="+1 555 123 4567"
           required
-          className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-sm text-black outline-none transition focus:border-black"
+          className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-base text-black outline-none transition focus:border-black"
           aria-invalid={!!error && !form.phone.trim()}
         />
       </div>

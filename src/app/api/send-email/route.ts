@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       from: `"Waitlist Form" <weathersportifyteam@gmail.com>`,
-      to: "faizytexh@gmail.com",
+      to: "hamzaadam.imtiaz@gmail.com",
       subject: "Athlecure Waitlist Submission",
       text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}`,
       html: `

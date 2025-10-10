@@ -10,7 +10,7 @@ export default function CurvyHero() {
           <img
             src="https://static0.makeuseofimages.com/wordpress/wp-content/uploads/2023/03/interior-of-clothing-store.jpg?w=1600&h=900&fit=crop"
             alt="Clothing store interior"
-            className="h-full w-full object-cover opacity-60"
+            className="h-full w-full object-cover opacity-70"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/60 to-black/50" />
         </div>

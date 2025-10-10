@@ -1,9 +1,13 @@
 "use client"
 
-import { Toaster as Sonner, toast as sonnerToast } from "sonner"
+import {
+  Toaster as SonnerToaster,
+  toast as sonnerToast,
+  ToasterProps,
+} from "sonner"
 
-export const Toaster = () => (
-  <Sonner
+export const Toaster = (props: ToasterProps) => (
+  <SonnerToaster
     position="top-center"
     richColors
     closeButton
@@ -16,6 +20,7 @@ export const Toaster = () => (
         description: "text-sm text-neutral-600",
       },
     }}
+    {...props} // ✅ allows external overrides
   />
 )
 

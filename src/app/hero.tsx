@@ -38,7 +38,7 @@ export default function CurvyHero() {
       </div>
 
       {/* Content */}
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 min-h-screen flex items-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 min-h-screen flex items-center">
         <div className="grid items-center gap-8 md:gap-12 lg:gap-16 md:grid-cols-2 w-full">
           {/* Left: Headline and Copy */}
           <div className="text-white space-y-6 md:pr-6 lg:pr-12">

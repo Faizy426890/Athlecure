@@ -1,6 +1,7 @@
 import Header from "./header"
 import CurvyHero from "./hero"
-import WaitlistModal from "./wait-list-modal"
+import WaitlistModal from "./wait-list-modal" 
+import { SiteFooter } from "./site-footer"
 
 export default function Page() {
   return (
@@ -12,7 +13,8 @@ export default function Page() {
       <WaitlistModal />
 
       {/* Hero with curvy black blob and right-side waitlist form */}
-      <CurvyHero />
+      <CurvyHero /> 
+      <SiteFooter/>
     </main>
   )
 }

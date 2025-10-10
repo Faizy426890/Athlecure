@@ -1,50 +1,71 @@
-import WaitlistForm from "./wait-list-form"
+import WaitlistForm from './wait-list-form';
 
 export default function CurvyHero() {
   return (
-    <section className="relative overflow-hidden">
-      {/* Curvy blob background - black only */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <svg
-          className="absolute -left-32 -top-24 h-[500px] w-[800px] max-w-none"
-          viewBox="0 0 800 500"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* organic blob shape */}
-          <path
-            d="M0,120 C120,40 260,0 380,40 C500,80 600,210 720,220 C820,230 840,260 800,320 C760,380 620,440 460,460 C300,480 180,460 100,420 C20,380 -20,320 0,120 Z"
-            fill="#000000"
+    <section className="relative min-h-screen overflow-hidden bg-black">
+      {/* Background Image with Curved Overlay */}
+      <div className="absolute inset-0">
+        {/* Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://static0.makeuseofimages.com/wordpress/wp-content/uploads/2023/03/interior-of-clothing-store.jpg?w=1600&h=900&fit=crop"
+            alt="Clothing store interior"
+            className="h-full w-full object-cover opacity-60"
           />
-        </svg>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/60 to-black/50" />
+        </div>
+
+        {/* Curved SVG Overlay */}
+        <div className="absolute inset-0 pointer-events-none">
+          <svg
+            className="absolute inset-0 h-full w-full"
+            viewBox="0 0 1440 800"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Large organic curved shape from left */}
+            <path
+              d="M0,0 L0,800 C200,750 350,680 450,600 C580,500 650,420 750,380 C850,340 950,340 1050,380 C1150,420 1250,500 1350,600 C1420,670 1440,720 1440,800 L1440,0 Z"
+              fill="rgba(0,0,0,0.7)"
+            />
+            {/* Accent curve */}
+            <path
+              d="M0,100 C200,80 350,120 450,180 C580,260 650,320 750,340 C850,360 950,340 1050,300 C1150,260 1250,200 1350,160 C1420,130 1440,120 1440,120 L1440,0 L0,0 Z"
+              fill="rgba(235,32,39,0.15)"
+            />
+          </svg>
+        </div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-24">
-        <div className="grid items-center gap-10 md:grid-cols-2">
-          {/* Left: headline and copy */}
-          <div className="text-white md:pr-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-xs uppercase tracking-wider text-white/80">
-              {/* subtle red accent dot */}
-              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: "#EB2027" }} />
+      {/* Content */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 min-h-screen flex items-center">
+        <div className="grid items-center gap-8 md:gap-12 lg:gap-16 md:grid-cols-2 w-full">
+          {/* Left: Headline and Copy */}
+          <div className="text-white space-y-6 md:pr-6 lg:pr-12">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-3 py-1.5 text-xs uppercase tracking-wider text-white/90">
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: '#EB2027' }} />
               Athlecure
             </span>
-            <h1 className="mt-4 text-balance text-4xl font-semibold leading-tight md:text-5xl">
+
+            <h1 className="text-balance text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Join the Waitlist
-              <span className="block text-white/80">We are coming soon</span>
+              <span className="block mt-2 text-white/80">We are coming soon</span>
             </h1>
-            <p className="mt-5 max-w-prose text-pretty text-sm leading-relaxed text-white/80 md:text-base">
+
+            <p className="max-w-prose text-pretty text-base sm:text-lg leading-relaxed text-white/80">
               A modern, professional experience is on the way. Be first to know when ATHLECURE launches.
             </p>
-            {/* small accent rule */}
-            <div className="mt-6 h-1 w-16" style={{ backgroundColor: "#EB2027" }} />
+
+            <div className="h-1 w-16" style={{ backgroundColor: '#EB2027' }} />
           </div>
 
-          {/* Right: device-like card with the waitlist form */}
-          <div className="md:pl-6">
-            <div className="mx-auto w-full max-w-md rounded-3xl bg-white p-6 shadow-[0_10px_40px_rgba(0,0,0,0.12)] ring-1 ring-black/5">
-              <div className="mb-4 text-center">
-                <div className="mx-auto mb-2 h-1 w-8 rounded-full bg-black/10" aria-hidden="true" />
-                <h2 className="text-xl font-semibold text-black">ATHLECURE</h2>
-                <p className="mt-1 text-sm text-neutral-600">Join the waitlist — we are coming soon</p>
+          {/* Right: Waitlist Form Card */}
+          <div className="md:pl-6 lg:pl-12">
+            <div className="mx-auto w-full max-w-md rounded-3xl bg-white/95 backdrop-blur-sm p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.3)] ring-1 ring-black/5">
+              <div className="mb-6 text-center">
+                <div className="mx-auto mb-3 h-1 w-8 rounded-full bg-black/10" aria-hidden="true" />
+                <h2 className="text-2xl font-bold text-black">ATHLECURE</h2>
+                <p className="mt-2 text-sm text-neutral-600">Join the waitlist — we are coming soon</p>
               </div>
               <WaitlistForm />
             </div>
@@ -52,5 +73,5 @@ export default function CurvyHero() {
         </div>
       </div>
     </section>
-  )
+  );
 }

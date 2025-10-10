@@ -20,27 +20,37 @@ export default function WaitlistForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
+ async function onSubmit(e: React.FormEvent) {
+  e.preventDefault()
+  setError(null)
 
-    if (!form.name.trim() || !/^\S+@\S+\.\S+$/.test(form.email) || !form.phone.trim()) {
-      setError("Please provide a valid name, email, and phone.")
-      return
-    }
-
-    try {
-      setLoading(true)
-      // Simulate submission; integrate your backend later.
-      await new Promise((r) => setTimeout(r, 700))
-      setSubmitted(true)
-      setForm({ name: "", email: "", phone: "" })
-    } catch {
-      setError("Something went wrong. Please try again.")
-    } finally {
-      setLoading(false)
-    }
+  if (!form.name.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) {
+    setError("Please provide a valid name and email.")
+    return
   }
+
+  try {
+    setLoading(true)
+
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    })
+
+    if (!res.ok) {
+      const data = await res.json()
+      throw new Error(data.error || "Failed to send email")
+    }
+
+    setSubmitted(true)
+    setForm({ name: "", email: "", phone: "" })
+  } catch (err: any) {
+    setError(err.message || "Something went wrong. Please try again.")
+  } finally {
+    setLoading(false)
+  }
+}
 
   if (submitted) {
     return (

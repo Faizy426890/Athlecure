@@ -34,8 +34,10 @@ export default function WaitlistModal() {
       <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} aria-hidden="true" />
 
       {/* Modal Panel */}
-      <div className="relative z-10 mx-4 mt-24 w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
-        <div className="absolute left-0 top-0 h-1 w-full" style={{ backgroundColor: "#EB2027" }} aria-hidden="true" />
+      <div
+        className="relative z-10 mx-4 mt-24 w-full max-w-lg overflow-hidden rounded-2xl bg-white p-6 shadow-2xl border-t-4"
+        style={{ borderTopColor: "#EB2027" }}
+      >
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-wider text-neutral-500">Athlecure</p>

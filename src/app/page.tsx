@@ -10,7 +10,7 @@ export default function Page() {
       <Header />
 
       {/* Auto-opening modal on first paint */}
-      <WaitlistModal />
+      {/* <WaitlistModal /> */}
 
       {/* Hero with curvy black blob and right-side waitlist form */}
       <CurvyHero /> 

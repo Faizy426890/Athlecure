@@ -120,7 +120,7 @@ export function AthelcureChatbot() {
               />
             </div>
             <div className="flex flex-col min-w-0">
-              <SheetTitle className="text-sm sm:text-base truncate">Chat with Athelcure</SheetTitle>
+              <SheetTitle className="text-sm sm:text-base truncate">Chat with Athlecure</SheetTitle>
               <SheetDescription className="text-xs sm:text-sm truncate">
                 Light, modern, and professional. How can we help?
               </SheetDescription>

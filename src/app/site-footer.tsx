@@ -51,11 +51,11 @@ export function SiteFooter() {
           <img
             src="https://res.cloudinary.com/diml90c1y/image/upload/v1759972747/1_Transparent_Image_pjpbxm.png"
             alt="Brand Logo"
-            className="h-24 lg:h-28 w-auto object-contain"
+            className="h-32 lg:h-36 w-auto object-contain"
           />
         </div>
             <div>
-              <h3 className="text-lg font-semibold">Athlecure Clothing Co.</h3>
+              <h3 className="text-lg font-semibold">Athlecure</h3>
               <p className="text-sm text-muted-foreground max-w-prose">
                 Premium basics and performance wear designed for movement, comfort, and style. Ethically made, built to
                 last, and ready for your everyday.

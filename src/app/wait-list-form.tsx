@@ -109,7 +109,7 @@ export default function WaitlistForm() {
 
       <div>
         <label htmlFor="phone" className="mb-1 block text-sm font-medium text-black">
-          Phone
+          Phone <span className="text-[11px] pl-1 text-gray-500">(optional)</span>
         </label>
         <input
           id="phone"
@@ -118,7 +118,6 @@ export default function WaitlistForm() {
           value={form.phone}
           onChange={onChange}
           placeholder="+1 555 123 4567"
-          required
           className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-base text-black outline-none transition focus:border-black"
           aria-invalid={!!error && !form.phone.trim()}
         />

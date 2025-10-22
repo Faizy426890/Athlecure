@@ -21,9 +21,9 @@ const serif = FontSourceSerif({ subsets: ['latin'], weight: ['200', '300', '400'
 
 // Metadata
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'Athlecure',
+  description: 'the next gen',
+  generator: 'Athlecure',
 }
 
 // Root layout

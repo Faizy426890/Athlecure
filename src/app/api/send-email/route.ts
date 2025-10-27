@@ -2,7 +2,6 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 import { google } from "googleapis"
-import fs from "fs"
 import path from "path"
 
 export async function POST(req: Request) {
@@ -75,21 +74,25 @@ export async function POST(req: Request) {
     })
 
     // 4️⃣ --- Add to Google Sheet ---
-    const filePath = path.join(process.cwd(), "google-credentials.json")
-   const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS!);
+    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS!)
+
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     })
+
     const sheets = google.sheets({ version: "v4", auth })
     const SHEET_ID = "1VYAbsr8NgvJDGZurY6OZIz7aBC5xxAxgOZeeqa6PRkY"
+
+    // ✅ Clean up phone number (remove all spaces)
+    const sanitizedPhone = phone ? phone.replace(/\s+/g, "") : "N/A"
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
       range: "Sheet1!A:D",
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[name, email, phone || "N/A", new Date().toLocaleString()]],
+        values: [[name.trim(), email.trim(), sanitizedPhone, new Date().toLocaleString()]],
       },
     })
 

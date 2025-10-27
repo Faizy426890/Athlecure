@@ -76,7 +76,7 @@ export async function POST(req: Request) {
 
     // 4️⃣ --- Add to Google Sheet ---
     const filePath = path.join(process.cwd(), "google-credentials.json")
-    const credentials = JSON.parse(fs.readFileSync(filePath, "utf8"))
+   const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS!);
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
